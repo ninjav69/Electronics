@@ -1,0 +1,171 @@
+[p AUTOSTATIC PIC14 PICMIDHI PICLOMID LITE_MODE ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F84A ]
+"6 ../isr.c
+[v F140 `(v  1 t 0 ]
+"12 ../init.c
+[v _init `(v  1 e 0 0 ]
+"6 ../isr.c
+[v _my_isr `I(v  1 e 0 0 ]
+"8 ../main.c
+[v _main `(v  1 e 0 0 ]
+"4
+[v _clock_counter `Vuc  1 e 1 @77 ]
+"17 /usr/hitech/picc/pro/9.60PL5/include/pic1684.h
+[v _INDF `Vuc  1 e 1 @0 ]
+"18
+[v _RTCC `Vuc  1 e 1 @1 ]
+"19
+[v _TMR0 `Vuc  1 e 1 @1 ]
+"20
+[v _PCL `Vuc  1 e 1 @2 ]
+"21
+[v _STATUS `Vuc  1 e 1 @3 ]
+"22
+[v _FSR `uc  1 e 1 @4 ]
+"23
+[v _PORTA `Vuc  1 e 1 @5 ]
+"24
+[v _PORTB `Vuc  1 e 1 @6 ]
+"25
+[v _EEDATA `Vuc  1 e 1 @8 ]
+"26
+[v _EEADR `Vuc  1 e 1 @9 ]
+"27
+[v _PCLATH `uc  1 e 1 @10 ]
+"28
+[v _INTCON `Vuc  1 e 1 @11 ]
+"30
+[v _OPTION `uc  1 e 1 @129 ]
+"31
+[v _TRISA `Vuc  1 e 1 @133 ]
+"32
+[v _TRISB `Vuc  1 e 1 @134 ]
+"33
+[v _EECON1 `Vuc  1 e 1 @136 ]
+"34
+[v _EECON2 `Vuc  1 e 1 @137 ]
+"37
+[v _RP0 `Vb  1 e 0 @29 ]
+"38
+[v _TO `Vb  1 e 0 @28 ]
+"39
+[v _PD `Vb  1 e 0 @27 ]
+"40
+[v _ZERO `Vb  1 e 0 @26 ]
+"41
+[v _DC `Vb  1 e 0 @25 ]
+"42
+[v _CARRY `Vb  1 e 0 @24 ]
+"45
+[v _RA4 `Vb  1 e 0 @44 ]
+"46
+[v _RA3 `Vb  1 e 0 @43 ]
+"47
+[v _RA2 `Vb  1 e 0 @42 ]
+"48
+[v _RA1 `Vb  1 e 0 @41 ]
+"49
+[v _RA0 `Vb  1 e 0 @40 ]
+"52
+[v _RB7 `Vb  1 e 0 @55 ]
+"53
+[v _RB6 `Vb  1 e 0 @54 ]
+"54
+[v _RB5 `Vb  1 e 0 @53 ]
+"55
+[v _RB4 `Vb  1 e 0 @52 ]
+"56
+[v _RB3 `Vb  1 e 0 @51 ]
+"57
+[v _RB2 `Vb  1 e 0 @50 ]
+"58
+[v _RB1 `Vb  1 e 0 @49 ]
+"59
+[v _RB0 `Vb  1 e 0 @48 ]
+"60
+[v _INT `Vb  1 e 0 @48 ]
+"63
+[v _GIE `Vb  1 e 0 @95 ]
+"64
+[v _EEIE `Vb  1 e 0 @94 ]
+"65
+[v _T0IE `Vb  1 e 0 @93 ]
+"66
+[v _INTE `Vb  1 e 0 @92 ]
+"67
+[v _RBIE `Vb  1 e 0 @91 ]
+"68
+[v _T0IF `Vb  1 e 0 @90 ]
+"69
+[v _INTF `Vb  1 e 0 @89 ]
+"70
+[v _RBIF `Vb  1 e 0 @88 ]
+"73
+[v _RBPU `b  1 e 0 @1039 ]
+"74
+[v _INTEDG `b  1 e 0 @1038 ]
+"75
+[v _T0CS `b  1 e 0 @1037 ]
+"76
+[v _T0SE `b  1 e 0 @1036 ]
+"77
+[v _PSA `b  1 e 0 @1035 ]
+"78
+[v _PS2 `b  1 e 0 @1034 ]
+"79
+[v _PS1 `b  1 e 0 @1033 ]
+"80
+[v _PS0 `b  1 e 0 @1032 ]
+"83
+[v _TRISA4 `Vb  1 e 0 @1068 ]
+"84
+[v _TRISA3 `Vb  1 e 0 @1067 ]
+"85
+[v _TRISA2 `Vb  1 e 0 @1066 ]
+"86
+[v _TRISA1 `Vb  1 e 0 @1065 ]
+"87
+[v _TRISA0 `Vb  1 e 0 @1064 ]
+"90
+[v _TRISB7 `Vb  1 e 0 @1079 ]
+"91
+[v _TRISB6 `Vb  1 e 0 @1078 ]
+"92
+[v _TRISB5 `Vb  1 e 0 @1077 ]
+"93
+[v _TRISB4 `Vb  1 e 0 @1076 ]
+"94
+[v _TRISB3 `Vb  1 e 0 @1075 ]
+"95
+[v _TRISB2 `Vb  1 e 0 @1074 ]
+"96
+[v _TRISB1 `Vb  1 e 0 @1073 ]
+"97
+[v _TRISB0 `Vb  1 e 0 @1072 ]
+"100
+[v _EEIF `Vb  1 e 0 @1092 ]
+"101
+[v _WRERR `Vb  1 e 0 @1091 ]
+"102
+[v _WREN `Vb  1 e 0 @1090 ]
+"103
+[v _WR `Vb  1 e 0 @1089 ]
+"104
+[v _RD `Vb  1 e 0 @1088 ]
+"8 ../main.c
+[v _main `(v  1 e 0 0 ]
+{
+"15
+} 0
+"12 ../init.c
+[v _init `(v  1 e 0 0 ]
+{
+"41
+} 0
+"6 ../isr.c
+[v _my_isr `I(v  1 e 0 0 ]
+{
+"14
+} 0

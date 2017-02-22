@@ -1,0 +1,6 @@
+!my_isr 8 8
+adc_interrupt 12
+ps2_interrupt 24
+_delay 29
+push 33
+36

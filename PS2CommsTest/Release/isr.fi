@@ -1,0 +1,4 @@
+!my_isr 6 6
+_delay 10
+push 14
+17

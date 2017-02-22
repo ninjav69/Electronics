@@ -1,0 +1,28 @@
+     1: #include "init.h"       // included by C-Wiz
+     2: #include <htc.h>
+     3: 
+     4: #ifndef _XTAL_FREQ
+     5: #define _XTAL_FREQ 20000000
+     6: #endif //_XTAL_FREQ
+     7: 
+     8: void main(void) {
+     9:     char output = 1;
+    10:     char i;
+    11: 
+    12:     init();     // Function call inserted by C-Wiz
+    13:     while (1){
+    14:         for (i = 0; i < 7; i++)
+    15:         {
+    16:             PORTB = output;
+    17:             output <<= 1;
+    18:             __delay_ms(200);
+    19:         }
+    20:         for (i = 0; i < 7; i++)
+    21:         {
+    22:             PORTB = output;
+    23:             output >>= 1;
+    24:             __delay_ms(200);
+    25:         }
+    26:     }
+    27: }
+    28: 

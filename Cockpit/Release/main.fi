@@ -1,0 +1,36 @@
+report_channel 31 31
+putc 32
+_delay 33
+putc 34
+_delay 35
+putc 36
+_delay 37
+putc 38
+_delay 39
+putc 40
+_delay 41
+42
+report_switchblock 49 49
+putc 50
+_delay 51
+putc 52
+_delay 53
+putc 54
+_delay 55
+putc 56
+_delay 57
+putc 58
+_delay 59
+60
+delay 62 63
+_delay 64
+65
+main 69 73
+init 75
+report_switchblock 83
+read_channel 93
+report_channel 97
+report_switchblock 108
+delay 112
+delay 114
+116

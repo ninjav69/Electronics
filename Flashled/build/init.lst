@@ -1,0 +1,29 @@
+     1: #include <htc.h>
+     2: 
+     3: /* Program device configuration word
+     4:  * Oscillator = XT
+     5:  * Watchdog Timer = Off
+     6:  * Power Up Timer = On
+     7:  * Code Protect = Off
+     8:  */
+     9: //__CONFIG(XT & WDTDIS & 0x3FF7 & UNPROTECT);
+    10: 
+    11: // Peripheral initialization function
+    12: void init(void){
+    13:         /***** Common Code ****
+    14:          *  Portbit7:4 interrupt-on-change disabled
+    15:          *  Global interrupt disabled during initialization
+    16:          */
+    17:         INTCON  = 0b00000000;
+    18:         /*
+    19:          *  Weak pullup on PORT disabled
+    20:          */
+    21:         OPTION_REG      = 0b10000000;
+    22:         
+    23:         /***** PortB Code ****
+    24:          *  Port directions: 1=input, 0=output
+    25:          */
+    26:         TRISB   = 0b00000000;
+    27:         TRISA   = 0b00000000;
+    28:         
+    29: }

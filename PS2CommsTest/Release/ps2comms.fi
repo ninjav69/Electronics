@@ -1,0 +1,7 @@
+ps2_init 4 4
+7
+ps2_write_byte 9 10
+_delay 15
+_delay 17
+_delay 19
+21

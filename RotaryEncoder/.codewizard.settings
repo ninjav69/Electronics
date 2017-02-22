@@ -1,0 +1,55 @@
+
+<codewizard page="1">
+  <fileSettings initFile="init.c" initFunc="init" h_match="true" hFile="init.h" genIsr="true" isrFile="isr.c" mainInit="true"/>
+  <module name="16F877A" enabled="true">
+    <settings frequency="20000000" idEnable="false" idCode="0000" confEnable="true" cfgOSC="3" cfgWDT="1" cfgPUT="1" cfgBODEN="1" cfgLVP="1" cfgWRT_ENABLE="0" cfgBACKBUG="0" cfgCPD="0" cfgCP="0" globalIntEnable="true"/>
+    <module name="A2D Converter" enabled="false">
+      <settings poweren="false" clock="0" channel="0" format="0" combin="7" ena2dint="false" gena2dint="false"/>
+    </module>
+    <module name="Capture/Compare" enabled="false">
+      <module name="CCP Module 1" enabled="false">
+        <settings eventType="0" comparatorValue="1" dutyCycle="10" mode="0" ccpEnable="false" compMode="0" enInt="false" genInt="false"/>
+      </module>
+      <module name="CCP Module 2" enabled="false">
+        <settings eventType="0" comparatorValue="1" dutyCycle="10" mode="0" ccpEnable="false" compMode="0" enInt="false" genInt="false"/>
+      </module>
+    </module>
+    <module name="Comparator" enabled="false">
+      <settings CVREnable="false" outputEnable="false" voltageRange="true" voltlevel="5.0" levelHigh="0" levelLow="0" compMode="0" invertOutOne="false" invertOutTwo="false" CIS="false"/>
+    </module>
+    <module name="EEPROM" enabled="false">
+      <settings intEnable="false" genInterrupt="false"/>
+    </module>
+    <module name="I/O Ports" enabled="true">
+      <module name="PortA" enabled="false">
+        <settings pinState0="0" pinState1="0" pinState2="0" pinState3="0" pinState4="0" pinState5="0" pinState6="0" pinState7="0"/>
+      </module>
+      <module name="PortB" enabled="true">
+        <settings pinState0="2" pinState1="2" pinState2="2" pinState3="2" pinState4="1" pinState5="1" pinState6="1" pinState7="1" enint="true" genint="true" pullup="false"/>
+      </module>
+      <module name="PortC" enabled="true">
+        <settings pinState0="2" pinState1="2" pinState2="2" pinState3="2" pinState4="2" pinState5="2" pinState6="1" pinState7="1"/>
+      </module>
+      <module name="PortD" enabled="false">
+        <settings pinState0="0" pinState1="0" pinState2="0" pinState3="0" pinState4="0" pinState5="0" pinState6="0" pinState7="0"/>
+      </module>
+      <module name="PortE" enabled="false">
+        <settings pinState0="0" pinState1="0" pinState2="0" pinState3="0" pinState4="0" pinState5="0" pinState6="0" pinState7="0"/>
+      </module>
+    </module>
+    <module name="Timers" enabled="false">
+      <module name="Timer 0" enabled="false">
+        <settings source="0" preAssign="false" preScale="0" trigEdge="false" intEnable="false" genInterrupt="false"/>
+      </module>
+      <module name="Timer 1" enabled="false">
+        <settings timerOn="false" extSource="false" oscCct="false" sync="false" preScale="0" intEnable="false" genInterrupt="false"/>
+      </module>
+      <module name="Timer 2" enabled="false">
+        <settings activate="false" postScale="0" preScale="0" enableInt="false" genInt="false" period="255"/>
+      </module>
+    </module>
+    <module name="Usart" enabled="true">
+      <settings usartEnable="true" operation="1" baudSpeed="5" nineBitReceive="false" addressDet="false" nineBitTransmit="false" integerBaudSpeed="25" bps="9600" baudState="true" synchMaster="false" synchReceive="false" singleReceive="false" asynchReceive="false" asynchTransmit="true" genInt="false" enableRcInt="false" enableTxInt="false" value="25"/>
+    </module>
+  </module>
+</codewizard>

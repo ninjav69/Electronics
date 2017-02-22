@@ -1,0 +1,21 @@
+### HEXMate logfile and output summary ###
+### Memory Usage ###
+ Unused memory ranges:
+  Eh - 3Fh
+  
+ RingOfFire.hex ranges:
+  0h - Dh
+  
+### Hex Memory Map ###
+ Legend:
+  - = Unused memory
+  F = Filled ROM
+  S = Stored serial code
+  A = Stored ASCII string
+  R = Reserved for checksum
+  C = Stored checksum result
+  T = Trailing code
+  & = Find & replace opcode
+  X = Find & delete opcode
+  1 = RingOfFire.hex
+00000000: 11111111111111--------------------------------------------------

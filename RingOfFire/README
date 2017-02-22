@@ -1,0 +1,177 @@
+Ring Of Fire:
+-------------
+
+Here we start to implement instrument output communications for the
+cockpit firmware. The idea is simple : take the ps2_comms module to
+the next level.
+
+We're currently connecting the chips in a daisy-chain fashion. This
+means that a message that gets fired from the last link in the chain
+can be propagated forward until it reaches the head - where the message
+is 'terminated' by redirecting it out the comms port to the PC.
+
+Now - what we mean to accomplish is to connect these chips into a ring.
+The head of the list will be connected to RX/TX to the PC serial port.
+The head's output stream is connected to the tail's input. The input
+is already connected up the chain so all messages propogate to the head
+as usual. Having this circular connection, we have a closed loop that we
+can use for inter-chip communication. The PC can send commands via it's
+serial port to the head chip's RX. The RX interrupt handler pushes this
+message onto a receive queue where it sits until the main loop has time
+to service this queue. The main loop also takes care of servicing this
+queue at regular intervals. The action that is taken on these 'events'
+depends on the application of the link of the chain - each link will
+handle the 'events' that are destined for it. If this link doens't have
+a hanlder for the event - it is enqueued on the 'output' queue, where
+the main loop will simply forward this event to the next link in the
+chain. This propagation of the event continues until it is serviced by
+a link.
+
+Now the question - if an event is injected that no-one has a hanlder
+for, no link will have a hanlder for it and it'll end up beign spun
+arround the loop continuesly - forever. This can be "fixed" by expanding
+our event 'packet' to include a 'source' channel and a 'destination' channel
+allong with the data. When a link creates a packet to be sent downstream, it
+stamps the packet with it's own unique ID. Now, when it sends this packet
+into the loop, and the packet eventually arrives at this link's input, then
+we can determine that the packet originated from us and we can simply
+discard it. This then acts like a 'terminator' for the messages.
+
+The head of the list also warrants some special attention as it is responsible
+for performing it's own functions, receive and send packets on the local
+'ring', and perform IO with the PC via the serial port. How will it know
+when to send a packet to the PC?
+
+Well, this is actually very simple given our design. Packet routing to the
+PC is simply a matter of enumerating this case as a 'channel', and giving
+the head link a special event handler to handle this case. So, it's simply
+an application of the specific link.
+
+
+Lets give a case study for both sources of data - Incomming from the PC
+and outgoing to the PC.
+
+Incomming from the PC:
+----------------------
+The PC is connected to the head of our list. Well, not really. We've connected
+all links in a ring, so there really isn't a "head" at all. We'll rather call
+this the 'master' element. Lests extend this scienario by adding a slave 'link'
+in the chain that performs ADC convertions and continually sends it's results
+down the circuit.
+
+As soon as the ADC link handles it's ADC interrupt and wishes to send a packet,
+it constructs an 'event' which it polulates with it's own ID (source), the target
+device ID (destination) and the data it wishes to send. In this case the destination
+is the serial port of the head link.
+
+
+#define EVT_TX		1	// the event 'type' id designating the serial port
+#define EVT_ADC_1	2	// the event 'type' id designating a single ADC channel
+
+struct packet {
+	unsigned char src_id;
+	unsigned char dst_id;
+	unsigned char data;
+};
+
+struct packet tx_packet;
+tx_packet.src_id = EVT_ADC_1;	// coming from the ADC channel 0 (for example)
+tx_packet.dst_id = EVT_TX;		// going to the serial port
+tx_packet.data = adc_val;		// package the data to be sent
+
+send_packet(tx_packet);			// enqueue it on this link's output queue.
+
+
+Now on the head link's input queue loop we service this event.
+
+struct packet rx_packet = recv_packet();
+if (packet.dst_id == EV_TX) {
+	// send the packet out the the serial port
+	send_rs232(packet.src_id);
+	send_rs232(packet.dst_id);
+	send_rs232(packet.data);
+}
+
+Note that we're sending the src_id, then the dst_id, then the data in that particular
+order.
+
+
+Now let's take a peek at comms form the PC serial port. The PC also encodes a packet
+in the same way the rest of the comms framework does. Lets target a function that
+switches leds based on the value that we send. We'll target a 'link' that is not
+the master, meaning that some event propogation will take place.
+
+#define EVT_RS232	0	// the event 'type' id designating the serial port (input to master)
+#define EVT_LED		3	// the event 'type' id designating the LED output function
+
+// Now the PC packages and sends the data to the master link
+struct packet tx_packet;
+tx_packet.src_id = EVT_RS232;
+tx_packet.dst_id = EVT_LED;
+tx_packet.data = 0x0f;
+
+send_packet(tx_packet);
+
+
+And on the master side we'll receive an RX interrupt for each element of the
+packet, we'll capture it and enqueue it on the input queue. The master loop
+that handles this queue will service this event, not find a local handler then
+queue's it on it's output queue for propogation downstream.
+
+struct packet rx_packet = recv_packet();
+if (rx_packet.dst_id == EV_TX) {
+	// send the packet out the the serial port
+	send_rs232(packet.src_id);
+	send_rs232(packet.dst_id);
+	send_rs232(packet.data);
+} else {
+	// Propogate packet forward
+	send_packet(rx_packet);
+}
+
+
+This packet is propogated to each link until one handles it. Here's an example
+of the link that hanldes this event.
+
+struct packet rx_packet = recv_packet();
+if (rx_packet.dst_id == EV_LED) {
+	// send the packet out the the serial port
+	set_leds(packet.data);
+} else {
+	// Propogate packet forward
+	send_packet(rx_packet);
+}
+
+
+The handler link identified it's packet, handled it and terminated it's propogation.
+
+
+
+Now for the 'termination' condition. When a packet receives a message it has sent itself,
+the packet is silently dropped. With the inclusion of the code to handle this condition,
+this is what the previous queue handler looks like:
+
+struct packet rx_packet = recv_packet();
+if (rx_packet.src_id == (ANY OF THIS MODULE'S OUTPUT ID'S))
+{
+	// drop packet to self
+} else {
+
+	// handle packet
+	if (rx_packet.dst_id == EV_LED) {
+		// send the packet out the the serial port
+		set_leds(packet.data);
+	} else {
+		// Propogate packet forward
+		send_packet(rx_packet);
+	}
+}
+ 
+ 
+ 
+ Now that we have the pattern established, it's simply a matter of implementation.
+ We'll start simply by implementing the 'master' link that handles 4 on/off switches
+ and 8 ADC channels. The second link will implement 4 on/off switches and a LED
+ driver block. This way we can proof-of-concept input and output.
+ 
+ 

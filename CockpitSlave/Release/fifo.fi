@@ -1,0 +1,12 @@
+in_push 16 16
+22
+in_pop 24 25
+30
+in_pending 33 33
+39
+out_push 41 41
+47
+out_pop 49 50
+55
+out_pending 58 58
+64

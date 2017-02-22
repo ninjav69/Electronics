@@ -1,0 +1,1 @@
+ps2comms.d ps2comms.p1: ../ps2comms.c /usr/hitech/picc/pro/9.60PL5/include/eeprom_routines.h /usr/hitech/picc/pro/9.60PL5/include/pic168xa.h /usr/hitech/picc/pro/9.60PL5/include/htc.h /usr/hitech/picc/pro/9.60PL5/include/pic.h ../ps2comms.h ../config.h

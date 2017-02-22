@@ -1,0 +1,21 @@
+	// No interrupts generated
+	if (INTF) {
+		clock_counter++;
+		INTF = 0;
+	}
+
+	
+	
+		/***** Timer 0 Code *****/
+	if((T0IE)&&(T0IF)){
+		clock_count = 0;
+		T0IF = 0;	// clear event flag
+	}
+	
+	/* Extern interrupt code */
+	if (INTF) {
+		TMR0 = 0;
+		clock_count++;
+		INTF = 0;
+	}
+	

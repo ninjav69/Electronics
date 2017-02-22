@@ -1,0 +1,6 @@
+!my_isr 9 9
+adc_interrupt 13
+sb_interrupt 19
+uart_interrupt 25
+rof_interrupt 31
+34

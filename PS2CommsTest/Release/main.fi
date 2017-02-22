@@ -1,0 +1,15 @@
+main 9 9
+init 10
+ps2_init 11
+_delay 13
+_delay 14
+_delay 15
+_delay 16
+_delay 17
+_delay 18
+pending 23
+pop 24
+ps2_write_byte 25
+ps2_write_byte 26
+_delay 27
+30

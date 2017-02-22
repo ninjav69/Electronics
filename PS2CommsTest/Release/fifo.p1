@@ -1,0 +1,121 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[s S1 `uc 1 `uc 1 ]
+[n S1 entry_t key value ]
+"6 ../fifo.c
+[v _fifo `S1 -> 16 `i e ]
+"7 ../fifo.c
+[v _iidx `uc 1 e ]
+"8 ../fifo.c
+[v _oidx `uc 1 e ]
+"9 ../fifo.c
+[v _tidx `uc 1 e ]
+[; ;fifo.h: 10: struct entry_t {
+[; ;fifo.h: 11: unsigned char key;
+[; ;fifo.h: 12: unsigned char value;
+[; ;fifo.h: 13: };
+[; ;fifo.h: 15: void push(struct entry_t entry);
+[; ;fifo.h: 16: struct entry_t pop(void);
+[; ;fifo.h: 17: unsigned char pending(void);
+[; ;fifo.c: 6: struct entry_t fifo[16];
+[i _iidx
+"7 ../fifo.c
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 7: unsigned char iidx = 0;
+[i _oidx
+"8
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 8: unsigned char oidx = 0;
+[i _tidx
+"9
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 9: unsigned char tidx = 0;
+"11
+[v _push `(v 1 ef1`S1 ]
+{
+[; ;fifo.c: 11: void push(struct entry_t entry) {
+[e :U _push ]
+[v _entry `S1 1 r1 ]
+[f ]
+[; ;fifo.c: 12: fifo[iidx] = entry;
+"12
+[e = *U + &U _fifo * -> _iidx `ux -> -> # *U &U _fifo `ui `ux _entry ]
+[; ;fifo.c: 13: tidx = (iidx + 1) & (16-1);;
+"13
+[e = _tidx -> & + -> _iidx `i -> 1 `i - -> 16 `i -> 1 `i `uc ]
+[; ;fifo.c: 14: if (tidx != oidx) {
+"14
+[e $ ! != -> _tidx `i -> _oidx `i 3  ]
+{
+[; ;fifo.c: 15: iidx = tidx;
+"15
+[e = _iidx _tidx ]
+"16
+}
+[e :U 3 ]
+[; ;fifo.c: 16: }
+[; ;fifo.c: 17: }
+"17
+[e :UE 2 ]
+}
+"19
+[v _pop `(S1 1 ef ]
+{
+[; ;fifo.c: 19: struct entry_t pop(void) {
+[e :U _pop ]
+[f ]
+"20
+[v _rv `S1 1 a ]
+[; ;fifo.c: 20: struct entry_t rv;
+[; ;fifo.c: 21: rv = fifo[oidx];
+"21
+[e = _rv *U + &U _fifo * -> _oidx `ux -> -> # *U &U _fifo `ui `ux ]
+[; ;fifo.c: 22: ++oidx;
+"22
+[e =+ _oidx -> -> 1 `i `uc ]
+[; ;fifo.c: 23: oidx &= (16-1);;
+"23
+[e =& _oidx -> - -> 16 `i -> 1 `i `uc ]
+[; ;fifo.c: 24: return rv;
+"24
+[e ) _rv ]
+[e $UE 4  ]
+[; ;fifo.c: 25: }
+"25
+[e :UE 4 ]
+}
+"28
+[v _pending `(uc 1 ef ]
+{
+[; ;fifo.c: 27: unsigned char pending(void)
+[; ;fifo.c: 28: {
+[e :U _pending ]
+[f ]
+[; ;fifo.c: 29: if (iidx > oidx) {
+"29
+[e $ ! > -> _iidx `i -> _oidx `i 6  ]
+{
+[; ;fifo.c: 30: return (iidx - oidx);
+"30
+[e ) -> - -> _iidx `i -> _oidx `i `uc ]
+[e $UE 5  ]
+"31
+}
+[; ;fifo.c: 31: } else {
+[e $U 7  ]
+[e :U 6 ]
+{
+[; ;fifo.c: 32: return (oidx - iidx);
+"32
+[e ) -> - -> _oidx `i -> _iidx `i `uc ]
+[e $UE 5  ]
+"33
+}
+[e :U 7 ]
+[; ;fifo.c: 33: }
+[; ;fifo.c: 34: }
+"34
+[e :UE 5 ]
+}

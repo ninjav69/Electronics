@@ -1,0 +1,827 @@
+
+
+HI-TECH Software PICC Macro Assembler V9.60PL5 build 3884 
+                                                      Sat Jan 24 19:43:48 2009
+
+HI-TECH Software Omniscient Code Generator build 3884
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code 
+                                 Generator build 3884"
+     2                           
+     3                           	processor	16F84A
+     4                           clrc	macro
+     5                           	bcf	status,0
+     6  0000                     	endm
+     7                           clrz	macro
+     8                           	bcf	status,2
+     9  0000                     	endm
+    10                           setc	macro
+    11                           	bsf	status,0
+    12  0000                     	endm
+    13                           setz	macro
+    14                           	bsf	status,2
+    15  0000                     	endm
+    16                           skipc	macro
+    17                           	btfss	status,0
+    18  0000                     	endm
+    19                           skipz	macro
+    20                           	btfss	status,2
+    21  0000                     	endm
+    22                           skipnc	macro
+    23                           	btfsc	status,0
+    24  0000                     	endm
+    25                           skipnz	macro
+    26                           	btfsc	status,2
+    27  0000                     	endm
+    28  0000                     indf	equ	0
+    29  0000                     indf0	equ	0
+    30  0000                     pc	equ	2
+    31  0000                     pcl	equ	2
+    32  0000                     status	equ	3
+    33  0000                     fsr	equ	4
+    34  0000                     fsr0	equ	4
+    35  0000                     c	equ	1
+    36  0000                     z	equ	0
+    37  0000                     pclath	equ	10
+    38                           # 9 "../init.c"
+    39                           	psect config,class=CONFIG,delta=2 ;#
+    40                           # 9 "../init.c"
+    41  2007  3FF1               	dw 0x3FFD & 0x3FFB & 0x3FF7 & 0x3FFF ;#
+    42                           global __tempreg
+    43  0000                     __tempreg	set	12
+    44                           global __Lrbss_0, __Hrbss_0
+    45  0000                     __Lrbss_0 set 0x4A
+    46  0000                     __Hrbss_0 set 0x4E
+    47                           global __Lrdata_0, __Hrdata_0
+    48  0000                     __Lrdata_0	equ	0x0
+    49  0000                     __Hrdata_0	equ	0x1
+    50                           global __Lramdata, __Lrdata_0, __Hramdata, __Hr
+                                 data_0
+    51  0000                     __Lramdata	set	__Lrdata_0
+    52  0000                     __Hramdata	set	__Hrdata_0
+    53                           	GLOBAL	__databank
+    54  0000                     __databank	EQU	0
+    55                           ;Data sizes: Strings 0, constant 0, data 0, bss
+                                  0, persistent 0 stack 9
+    56                           	global	_main
+    57                           	global	??_main
+    58                           	global	?_main
+    59                           
+    60                           ; *************** function _main **************
+                                 *
+    61                           ; Defined at:
+    62                           ;		line 17 in file "../main.c"
+    63                           ; Parameters:
+    64                           ;		None
+    65                           ; Auto variables:
+    66                           ;		i           	       	type: int 
+    67                           ; Return value:
+    68                           ;		type: void 
+    69                           ;		size: 0
+    70                           ; Registers used:
+    71                           ;		wreg, status,2, status,0, pclath, cstack
+    72                           ; Tracked objects:
+    73                           ;		On entry : BFF/0
+    74                           ;		On exit  : 0/0
+    75                           ;		Unchanged: 0/0
+    76                           ; Data sizes:
+    77                           ;		Autos:    0
+    78                           ;		Params:   0
+    79                           ;		Temp:     3
+    80                           ;		Total:    3
+    81                           ; This function calls:
+    82                           ;		_init
+    83                           ; This function is called by:
+    84                           ;		Startup code after reset
+    85                           ; This function uses a non-reentrant model
+    86                           ; 
+    87                           	psect	maintext,class=CODE,delta=2
+    88                           	file	"../main.c"
+    89                           	line	17
+    90                           	psect	maintext
+    91                           ;init.h: 2: extern void init(void);
+    92                           ;pic1684.h: 17: volatile unsigned char INDF @ 0
+                                 x00;
+    93                           ;pic1684.h: 18: volatile unsigned char RTCC @ 0
+                                 x01;
+    94                           ;pic1684.h: 19: volatile unsigned char TMR0 @ 0
+                                 x01;
+    95                           ;pic1684.h: 20: volatile unsigned char PCL @ 0x
+                                 02;
+    96                           ;pic1684.h: 21: volatile unsigned char STATUS @
+                                  0x03;
+    97                           ;pic1684.h: 22: unsigned char FSR @ 0x04;
+    98                           ;pic1684.h: 23: volatile unsigned char PORTA @ 
+                                 0x05;
+    99                           ;pic1684.h: 24: volatile unsigned char PORTB @ 
+                                 0x06;
+   100                           ;pic1684.h: 25: volatile unsigned char EEDATA @
+                                  0x08;
+   101                           ;pic1684.h: 26: volatile unsigned char EEADR @ 
+                                 0x09;
+   102                           	
+   103  001C                     _main:	
+   104                           ; Regs used in _main: [wreg+status,2+status,0+p
+                                 clath+cstack]
+   105                           	line	20
+   106                           ;main.c: 18: int i;
+   107                           ;main.c: 20: init();
+   108  001C  2076               	fcall	_init
+   109                           	line	22
+   110                           ;main.c: 22: PORTA = 0;
+   111  001D  1003               	clrc
+   112  001E  1283               	bcf	status, 5	;RP0=0, select bank0
+   113                           	
+   114  001F  3000               	movlw	0
+   115  0020  1803               	btfsc	status,0
+   116  0021  3001               	movlw	1
+   117  0022  0085               	movwf	(5)	;volatile
+   118                           	line	23
+   119                           ;main.c: 23: PORTB = 0;
+   120  0023  1003               	clrc
+   121                           	
+   122  0024  3000               	movlw	0
+   123  0025  1803               	btfsc	status,0
+   124  0026  3001               	movlw	1
+   125  0027  0086               	movwf	(6)	;volatile
+   126                           	line	25
+   127                           ;main.c: 25: while (1){
+   128                           	
+   129  0028                     l3:	
+   130                           	line	27
+   131                           ;main.c: 27: if (kbhit) {
+   132  0028  1C4D               	btfss	(616/8),(616)&7
+   133  0029  282B               	goto	u831
+   134  002A  282C               	goto	u830
+   135  002B                     u831:
+   136  002B  2845               	goto	l2
+   137  002C                     u830:
+   138                           	line	28
+   139                           ;main.c: 28: PORTA = bitcount;
+   140                           	
+   141  002C  084C               	movf	(76),w	;volatile
+   142                           	
+   143                           	
+   144  002D  0085               	movwf	(5)	;volatile
+   145                           	line	29
+   146                           ;main.c: 29: PORTB = (data >> 2);
+   147                           	
+   148  002E  084B               	movf	(74+1),w	;volatile
+   149  002F  008D               	movwf	(??_main+0+0+1)
+   150  0030  084A               	movf	(74),w	;volatile
+   151  0031  008C               	movwf	(??_main+0+0)
+   152  0032  3002               	movlw	02h
+   153  0033  008E               	movwf	(??_main+2+0)
+   154  0034                     u845:
+   155  0034  0D0D               	rlf	(??_main+0+1),w
+   156  0035  0C8D               	rrf	(??_main+0+1),f
+   157  0036  0C8C               	rrf	(??_main+0+0),f
+   158  0037  0B8E               	decfsz	(??_main+2+0),f
+   159  0038  2834               	goto	u845
+   160  0039  080C               	movf	0+(??_main+0+0),w
+   161                           	
+   162                           	
+   163  003A  0086               	movwf	(6)	;volatile
+   164                           	line	30
+   165                           ;main.c: 30: bitcount = 0;
+   166  003B  1003               	clrc
+   167                           	
+   168  003C  3000               	movlw	0
+   169  003D  1803               	btfsc	status,0
+   170  003E  3001               	movlw	1
+   171  003F  00CC               	movwf	(76)	;volatile
+   172                           	line	31
+   173                           ;main.c: 31: data = 0;
+   174  0040  3000               	movlw	low(0)
+   175                           	
+   176  0041  00CA               	movwf	(74)	;volatile
+   177  0042  3000               	movlw	high(0)
+   178  0043  00CB               	movwf	((74))+1	;volatile
+   179                           	line	32
+   180                           ;main.c: 32: kbhit = 0;
+   181  0044  104D               	bcf	(616/8),(616)&7
+   182                           	line	33
+   183                           	
+   184  0045                     l5:	
+   185                           	line	34
+   186                           	
+   187  0045                     l2:	
+   188                           	line	25
+   189  0045  2828               	goto	l3
+   190                           	global	start
+   191  0046  280F               	ljmp	start
+   192                           ; =============== function _main ends =========
+                                 ======
+   193                           
+   194                           GLOBAL __end_of_main
+   195  0047                     	__end_of_main:
+   196                           	FNSIZE	_main,3,0
+   197                           	psect	maintext
+   198                           	line	35
+   199                           	signat	_main,88
+   200                           	global	_init
+   201                           	global	??_init
+   202                           	global	?_init
+   203                           
+   204                           ; *************** function _init **************
+                                 *
+   205                           ; Defined at:
+   206                           ;		line 12 in file "../init.c"
+   207                           ; Parameters:
+   208                           ;		None
+   209                           ; Auto variables:
+   210                           ;		None
+   211                           ; Return value:
+   212                           ;		type: void 
+   213                           ;		size: 0
+   214                           ; Registers used:
+   215                           ;		wreg, status,2, status,0
+   216                           ; Tracked objects:
+   217                           ;		On entry : BFF/0
+   218                           ;		On exit  : 0/0
+   219                           ;		Unchanged: 0/0
+   220                           ; Data sizes:
+   221                           ;		Autos:    0
+   222                           ;		Params:   0
+   223                           ;		Temp:     0
+   224                           ;		Total:    0
+   225                           ; This function calls:
+   226                           ;		Nothing
+   227                           ; This function is called by:
+   228                           ;		_main
+   229                           ; This function uses a non-reentrant model
+   230                           ; 
+   231                           	psect	text33,local,class=CODE,delta=2
+   232                           	file	"../init.c"
+   233                           	line	12
+   234                           ;init.c: 9: asm("\tpsect config,class=CONFIG,de
+                                 lta=2"); asm("\tdw ""0x3FFD & 0x3FFB & 0x3FF7 &
+                                  0x3FFF");
+   235                           ;init.c: 12: void init(void){
+   236                           	
+   237  0076                     _init:	
+   238                           ; Regs used in _init: [wreg+status,2+status,0]
+   239                           	line	17
+   240                           ;init.c: 17: INTCON = 0b00000000;
+   241  0076  1003               	clrc
+   242                           	
+   243  0077  3000               	movlw	0
+   244  0078  1803               	btfsc	status,0
+   245  0079  3001               	movlw	1
+   246  007A  008B               	movwf	(11)	;volatile
+   247                           	line	21
+   248                           ;init.c: 21: OPTION = 0b10000000;
+   249  007B  3080               	movlw	(080h)
+   250  007C  1683               	bsf	status, 5	;RP0=1, select bank1
+   251                           	
+   252  007D  0081               	movwf	(129)^080h
+   253                           	line	26
+   254                           ;init.c: 26: TRISA = 0b00010000;
+   255  007E  3010               	movlw	(010h)
+   256                           	
+   257  007F  0085               	movwf	(133)^080h	;volatile
+   258                           	line	31
+   259                           ;init.c: 31: TRISB = 0b00000001;
+   260  0080  3001               	movlw	(01h)
+   261                           	
+   262  0081  0086               	movwf	(134)^080h	;volatile
+   263                           	line	36
+   264                           ;init.c: 36: INTEDG = 0;
+   265  0082  1301               	bcf	(1038/8)^080h,(1038)&7
+   266                           	line	37
+   267                           ;init.c: 37: INTE = 1;
+   268  0083  1283               	bcf	status, 5	;RP0=0, select bank0
+   269  0084  160B               	bsf	(92/8),(92)&7
+   270                           	line	39
+   271                           ;init.c: 39: (GIE = 1);
+   272  0085  178B               	bsf	(95/8),(95)&7
+   273                           	line	41
+   274                           ;init.c: 41: }
+   275  0086                     l10:	
+   276  0086  0008               	return
+   277                           ; =============== function _init ends =========
+                                 ======
+   278                           
+   279                           GLOBAL __end_of_init
+   280  0087                     	__end_of_init:
+   281                           	FNSIZE	_init,0,0
+   282                           	signat	_init,88
+   283                           	global	_my_isr
+   284                           	global	??_my_isr
+   285                           	global	?_my_isr
+   286                           
+   287                           ; *************** function _my_isr ************
+                                 ***
+   288                           ; Defined at:
+   289                           ;		line 8 in file "../isr.c"
+   290                           ; Parameters:
+   291                           ;		None
+   292                           ; Auto variables:
+   293                           ;		None
+   294                           ; Return value:
+   295                           ;		type: void 
+   296                           ;		size: 0
+   297                           ; Registers used:
+   298                           ;		wreg, status,2, status,0
+   299                           ; Tracked objects:
+   300                           ;		On entry : 100/0
+   301                           ;		On exit  : 0/0
+   302                           ;		Unchanged: 0/0
+   303                           ; Data sizes:
+   304                           ;		Autos:    0
+   305                           ;		Params:   0
+   306                           ;		Temp:     6
+   307                           ;		Total:    6
+   308                           ; This function calls:
+   309                           ;		Nothing
+   310                           ; This function is called by:
+   311                           ;		Interrupt level 1
+   312                           ; This function uses a non-reentrant model
+   313                           ; 
+   314                           	psect	intrtext,class=CODE,delta=2
+   315                           	file	"../isr.c"
+   316                           	line	8
+   317                           ;pic1684.h: 17: volatile unsigned char INDF @ 0
+                                 x00;
+   318                           ;pic1684.h: 18: volatile unsigned char RTCC @ 0
+                                 x01;
+   319                           ;pic1684.h: 19: volatile unsigned char TMR0 @ 0
+                                 x01;
+   320                           ;pic1684.h: 20: volatile unsigned char PCL @ 0x
+                                 02;
+   321                           ;pic1684.h: 21: volatile unsigned char STATUS @
+                                  0x03;
+   322                           ;pic1684.h: 22: unsigned char FSR @ 0x04;
+   323                           ;pic1684.h: 23: volatile unsigned char PORTA @ 
+                                 0x05;
+   324                           ;pic1684.h: 24: volatile unsigned char PORTB @ 
+                                 0x06;
+   325                           ;pic1684.h: 25: volatile unsigned char EEDATA @
+                                  0x08;
+   326                           ;pic1684.h: 26: volatile unsigned char EEADR @ 
+                                 0x09;
+   327                           	
+   328  0047                     _my_isr:	
+   329                           ; Regs used in _my_isr: [wreg+status,2+status,0
+                                 ]
+   330                           	psect	intentry,class=CODE,delta=2
+   331                           global interrupt_function
+   332  0004                     interrupt_function:
+   333                           	global saved_w
+   334  0000                     	saved_w	set	btemp+1
+   335  0004  00CF               	movwf	saved_w
+   336  0005  0803               	movf	status,w
+   337  0006  1283               	bcf	status, 5	;RP0=0, select bank0
+   338  0007  0091               	movwf	(??_my_isr+2)
+   339  0008  0804               	movf	fsr,w
+   340  0009  0092               	movwf	(??_my_isr+3)
+   341  000A  080A               	movf	pclath,w
+   342  000B  0093               	movwf	(??_my_isr+4)
+   343  000C  084E               	movf	btemp+0,w
+   344  000D  0094               	movwf	(??_my_isr+5)
+   345  000E  2847               	ljmp	_my_isr
+   346                           	psect	intrtext
+   347                           	line	11
+   348                           ;isr.c: 11: if (INTF) {
+   349  0047  1C8B               	btfss	(89/8),(89)&7
+   350  0048  284A               	goto	i1u851
+   351  0049  284B               	goto	i1u850
+   352  004A                     i1u851:
+   353  004A  286B               	goto	i1l7
+   354  004B                     i1u850:
+   355                           	line	13
+   356                           ;isr.c: 13: data |= RA4;
+   357  004B  1003               	clrc
+   358  004C  1A05               	btfsc	(44/8),(44)&7
+   359  004D  1403               	setc
+   360  004E  3000               	movlw	0
+   361  004F  1803               	skipnc
+   362  0050  3001               	movlw	1
+   363                           
+   364  0051  008F               	movwf	(??_my_isr+0+0)
+   365  0052  0190               	clrf	(??_my_isr+0+0+1)
+   366                           	
+   367  0053  080F               	movf	0+(??_my_isr+0+0),w
+   368  0054  04CA               	iorwf	(74),f	;volatile
+   369  0055  0810               	movf	1+(??_my_isr+0+0),w
+   370  0056  04CB               	iorwf	(74+1),f	;volatile
+   371                           	line	15
+   372                           ;isr.c: 15: bitcount++;
+   373  0057  3001               	movlw	(01h)
+   374  0058  008F               	movwf	(??_my_isr+0+0)
+   375                           	
+   376  0059  080F               	movf	(??_my_isr+0+0),w
+   377  005A  07CC               	addwf	(76),f	;volatile
+   378                           	line	16
+   379                           ;isr.c: 16: if (bitcount == 11) {
+   380                           	
+   381  005B  084C               	movf	(76),w	;volatile
+   382                           	
+   383  005C  3A0B               	xorlw	0Bh
+   384  005D  1D03               	skipz
+   385  005E  2860               	goto	i1u861
+   386  005F  2861               	goto	i1u860
+   387  0060                     i1u861:
+   388  0060  2863               	goto	i1l8
+   389  0061                     i1u860:
+   390                           	line	17
+   391                           ;isr.c: 17: kbhit = 1;
+   392  0061  144D               	bsf	(616/8),(616)&7
+   393                           	line	18
+   394                           ;isr.c: 18: } else {
+   395  0062  286A               	goto	i1l9
+   396                           	
+   397  0063                     i1l8:	
+   398                           	line	19
+   399                           ;isr.c: 19: data <<= 1;
+   400                           	
+   401  0063  3001               	movlw	01h
+   402  0064                     i1u875:
+   403  0064  1003               	clrc
+   404  0065  0DCA               	rlf	(74),f	;volatile
+   405  0066  0DCB               	rlf	(74+1),f	;volatile
+   406  0067  3EFF               	addlw	-1
+   407  0068  1D03               	skipz
+   408  0069  2864               	goto	i1u875
+   409                           	line	20
+   410                           	
+   411  006A                     i1l9:	
+   412                           	line	22
+   413                           ;isr.c: 20: }
+   414                           ;isr.c: 22: INTF = 0;
+   415  006A  108B               	bcf	(89/8),(89)&7
+   416                           	line	23
+   417                           	
+   418  006B                     i1l7:	
+   419                           	line	24
+   420                           ;isr.c: 23: }
+   421                           ;isr.c: 24: }
+   422  006B                     i1l6:	
+   423  006B  0814               	movf	(??_my_isr+5),w
+   424  006C  00CE               	movwf	btemp+0
+   425  006D  0813               	movf	(??_my_isr+4),w
+   426  006E  008A               	movwf	pclath
+   427  006F  0812               	movf	(??_my_isr+3),w
+   428  0070  0084               	movwf	fsr
+   429  0071  0811               	movf	(??_my_isr+2),w
+   430  0072  0083               	movwf	status
+   431  0073  0ECF               	swapf	saved_w,f
+   432  0074  0E4F               	swapf	saved_w,w
+   433  0075  0009               	retfie
+   434                           ; =============== function _my_isr ends =======
+                                 ========
+   435                           
+   436                           GLOBAL __end_of_my_isr
+   437  0076                     	__end_of_my_isr:
+   438                           	FNSIZE	_my_isr,6,0
+   439                           	signat	_my_isr,88
+   440                           	FNCALL	_main,_init
+   441                           	FNROOT	_main
+   442                           	FNCALL	intlevel1,_my_isr
+   443                           	global	intlevel1
+   444                           	FNROOT	intlevel1
+   445                           	psect	strings,class=CODE,delta=2,reloc=256
+   446                           	global	_data
+   447                           	psect	rbss_0,class=BANK0,space=1
+   448                           
+   449                           	DABS	1,74,2	;_data
+   450  0000                     	_data	set	0x4A
+   451                           
+   452                           	global	_bitcount
+   453                           
+   454                           	DABS	1,76,1	;_bitcount
+   455  0000                     	_bitcount	set	0x4C
+   456                           
+   457                           	global	_kbhit
+   458                           	psect	rbit_0,class=BANK0,bit,space=1
+   459                           
+   460                           	DABS	1,77,1	;_kbhit
+   461  0000                     	_kbhit	set	0x268	;byte address: 0x4D
+   462                           
+   463                           	global	_EEADR
+   464                           	global	_EEADR
+   465  0000                     	_EEADR	set	0x9
+   466                           
+   467                           	global	_EECON1
+   468                           	global	_EECON1
+   469  0000                     	_EECON1	set	0x88
+   470                           
+   471                           	global	_EECON2
+   472                           	global	_EECON2
+   473  0000                     	_EECON2	set	0x89
+   474                           
+   475                           	global	_EEDATA
+   476                           	global	_EEDATA
+   477  0000                     	_EEDATA	set	0x8
+   478                           
+   479                           	global	_FSR
+   480                           	global	_FSR
+   481  0000                     	_FSR	set	0x4
+   482                           
+   483                           	global	_INDF
+   484                           	global	_INDF
+   485  0000                     	_INDF	set	0x0
+   486                           
+   487                           	global	_INTCON
+   488  0000                     	_INTCON	set	0xB
+   489                           
+   490                           	global	_OPTION
+   491  0000                     	_OPTION	set	0x81
+   492                           
+   493                           	global	_PCL
+   494                           	global	_PCL
+   495  0000                     	_PCL	set	0x2
+   496                           
+   497                           	global	_PCLATH
+   498                           	global	_PCLATH
+   499  0000                     	_PCLATH	set	0xA
+   500                           
+   501                           	global	_PORTA
+   502  0000                     	_PORTA	set	0x5
+   503                           
+   504                           	global	_PORTB
+   505  0000                     	_PORTB	set	0x6
+   506                           
+   507                           	global	_RTCC
+   508                           	global	_RTCC
+   509  0000                     	_RTCC	set	0x1
+   510                           
+   511                           	global	_STATUS
+   512                           	global	_STATUS
+   513  0000                     	_STATUS	set	0x3
+   514                           
+   515                           	global	_TMR0
+   516                           	global	_TMR0
+   517  0000                     	_TMR0	set	0x1
+   518                           
+   519                           	global	_TRISA
+   520  0000                     	_TRISA	set	0x85
+   521                           
+   522                           	global	_TRISB
+   523  0000                     	_TRISB	set	0x86
+   524                           
+   525                           	global	_CARRY
+   526                           	global	_CARRY
+   527  0000                     	_CARRY	set	0x18	;byte address: 0x3
+   528                           
+   529                           	global	_DC
+   530                           	global	_DC
+   531  0000                     	_DC	set	0x19	;byte address: 0x3
+   532                           
+   533                           	global	_EEIE
+   534                           	global	_EEIE
+   535  0000                     	_EEIE	set	0x5E	;byte address: 0xB
+   536                           
+   537                           	global	_EEIF
+   538                           	global	_EEIF
+   539  0000                     	_EEIF	set	0x444	;byte address: 0x88
+   540                           
+   541                           	global	_GIE
+   542  0000                     	_GIE	set	0x5F	;byte address: 0xB
+   543                           
+   544                           	global	_INT
+   545                           	global	_INT
+   546  0000                     	_INT	set	0x30	;byte address: 0x6
+   547                           
+   548                           	global	_INTE
+   549  0000                     	_INTE	set	0x5C	;byte address: 0xB
+   550                           
+   551                           	global	_INTEDG
+   552  0000                     	_INTEDG	set	0x40E	;byte address: 0x81
+   553                           
+   554                           	global	_INTF
+   555  0000                     	_INTF	set	0x59	;byte address: 0xB
+   556                           
+   557                           	global	_PD
+   558                           	global	_PD
+   559  0000                     	_PD	set	0x1B	;byte address: 0x3
+   560                           
+   561                           	global	_PS0
+   562                           	global	_PS0
+   563  0000                     	_PS0	set	0x408	;byte address: 0x81
+   564                           
+   565                           	global	_PS1
+   566                           	global	_PS1
+   567  0000                     	_PS1	set	0x409	;byte address: 0x81
+   568                           
+   569                           	global	_PS2
+   570                           	global	_PS2
+   571  0000                     	_PS2	set	0x40A	;byte address: 0x81
+   572                           
+   573                           	global	_PSA
+   574                           	global	_PSA
+   575  0000                     	_PSA	set	0x40B	;byte address: 0x81
+   576                           
+   577                           	global	_RA0
+   578                           	global	_RA0
+   579  0000                     	_RA0	set	0x28	;byte address: 0x5
+   580                           
+   581                           	global	_RA1
+   582                           	global	_RA1
+   583  0000                     	_RA1	set	0x29	;byte address: 0x5
+   584                           
+   585                           	global	_RA2
+   586                           	global	_RA2
+   587  0000                     	_RA2	set	0x2A	;byte address: 0x5
+   588                           
+   589                           	global	_RA3
+   590                           	global	_RA3
+   591  0000                     	_RA3	set	0x2B	;byte address: 0x5
+   592                           
+   593                           	global	_RA4
+   594  0000                     	_RA4	set	0x2C	;byte address: 0x5
+   595                           
+   596                           	global	_RB0
+   597                           	global	_RB0
+   598  0000                     	_RB0	set	0x30	;byte address: 0x6
+   599                           
+   600                           	global	_RB1
+   601                           	global	_RB1
+   602  0000                     	_RB1	set	0x31	;byte address: 0x6
+   603                           
+   604                           	global	_RB2
+   605                           	global	_RB2
+   606  0000                     	_RB2	set	0x32	;byte address: 0x6
+   607                           
+   608                           	global	_RB3
+   609                           	global	_RB3
+   610  0000                     	_RB3	set	0x33	;byte address: 0x6
+   611                           
+   612                           	global	_RB4
+   613                           	global	_RB4
+   614  0000                     	_RB4	set	0x34	;byte address: 0x6
+   615                           
+   616                           	global	_RB5
+   617                           	global	_RB5
+   618  0000                     	_RB5	set	0x35	;byte address: 0x6
+   619                           
+   620                           	global	_RB6
+   621                           	global	_RB6
+   622  0000                     	_RB6	set	0x36	;byte address: 0x6
+   623                           
+   624                           	global	_RB7
+   625                           	global	_RB7
+   626  0000                     	_RB7	set	0x37	;byte address: 0x6
+   627                           
+   628                           	global	_RBIE
+   629                           	global	_RBIE
+   630  0000                     	_RBIE	set	0x5B	;byte address: 0xB
+   631                           
+   632                           	global	_RBIF
+   633                           	global	_RBIF
+   634  0000                     	_RBIF	set	0x58	;byte address: 0xB
+   635                           
+   636                           	global	_RBPU
+   637                           	global	_RBPU
+   638  0000                     	_RBPU	set	0x40F	;byte address: 0x81
+   639                           
+   640                           	global	_RD
+   641                           	global	_RD
+   642  0000                     	_RD	set	0x440	;byte address: 0x88
+   643                           
+   644                           	global	_RP0
+   645                           	global	_RP0
+   646  0000                     	_RP0	set	0x1D	;byte address: 0x3
+   647                           
+   648                           	global	_T0CS
+   649                           	global	_T0CS
+   650  0000                     	_T0CS	set	0x40D	;byte address: 0x81
+   651                           
+   652                           	global	_T0IE
+   653                           	global	_T0IE
+   654  0000                     	_T0IE	set	0x5D	;byte address: 0xB
+   655                           
+   656                           	global	_T0IF
+   657                           	global	_T0IF
+   658  0000                     	_T0IF	set	0x5A	;byte address: 0xB
+   659                           
+   660                           	global	_T0SE
+   661                           	global	_T0SE
+   662  0000                     	_T0SE	set	0x40C	;byte address: 0x81
+   663                           
+   664                           	global	_TO
+   665                           	global	_TO
+   666  0000                     	_TO	set	0x1C	;byte address: 0x3
+   667                           
+   668                           	global	_TRISA0
+   669                           	global	_TRISA0
+   670  0000                     	_TRISA0	set	0x428	;byte address: 0x85
+   671                           
+   672                           	global	_TRISA1
+   673                           	global	_TRISA1
+   674  0000                     	_TRISA1	set	0x429	;byte address: 0x85
+   675                           
+   676                           	global	_TRISA2
+   677                           	global	_TRISA2
+   678  0000                     	_TRISA2	set	0x42A	;byte address: 0x85
+   679                           
+   680                           	global	_TRISA3
+   681                           	global	_TRISA3
+   682  0000                     	_TRISA3	set	0x42B	;byte address: 0x85
+   683                           
+   684                           	global	_TRISA4
+   685                           	global	_TRISA4
+   686  0000                     	_TRISA4	set	0x42C	;byte address: 0x85
+   687                           
+   688                           	global	_TRISB0
+   689                           	global	_TRISB0
+   690  0000                     	_TRISB0	set	0x430	;byte address: 0x86
+   691                           
+   692                           	global	_TRISB1
+   693                           	global	_TRISB1
+   694  0000                     	_TRISB1	set	0x431	;byte address: 0x86
+   695                           
+   696                           	global	_TRISB2
+   697                           	global	_TRISB2
+   698  0000                     	_TRISB2	set	0x432	;byte address: 0x86
+   699                           
+   700                           	global	_TRISB3
+   701                           	global	_TRISB3
+   702  0000                     	_TRISB3	set	0x433	;byte address: 0x86
+   703                           
+   704                           	global	_TRISB4
+   705                           	global	_TRISB4
+   706  0000                     	_TRISB4	set	0x434	;byte address: 0x86
+   707                           
+   708                           	global	_TRISB5
+   709                           	global	_TRISB5
+   710  0000                     	_TRISB5	set	0x435	;byte address: 0x86
+   711                           
+   712                           	global	_TRISB6
+   713                           	global	_TRISB6
+   714  0000                     	_TRISB6	set	0x436	;byte address: 0x86
+   715                           
+   716                           	global	_TRISB7
+   717                           	global	_TRISB7
+   718  0000                     	_TRISB7	set	0x437	;byte address: 0x86
+   719                           
+   720                           	global	_WR
+   721                           	global	_WR
+   722  0000                     	_WR	set	0x441	;byte address: 0x88
+   723                           
+   724                           	global	_WREN
+   725                           	global	_WREN
+   726  0000                     	_WREN	set	0x442	;byte address: 0x88
+   727                           
+   728                           	global	_WRERR
+   729                           	global	_WRERR
+   730  0000                     	_WRERR	set	0x443	;byte address: 0x88
+   731                           
+   732                           	global	_ZERO
+   733                           	global	_ZERO
+   734  0000                     	_ZERO	set	0x1A	;byte address: 0x3
+   735                           
+   736                           	PSECT	fnauto0,class=BANK0,space=1
+   737                           	FNCONF	fnauto0,??,?
+   738                           
+   739                           	DABS	1,78,2	;btemp
+   740                           	global	btemp
+   741  0000                     	btemp set 04Eh
+   742                           apbank macro
+   743                           	bcf	status,5
+   744                           	bcf	status,6
+   745  000C                     	endm
+
+
+HI-TECH Software PICC Macro Assembler V9.60PL5 build 3884 
+Symbol Table                                          Sat Jan 24 19:43:48 2009
+
+         __Lrbss_0 004A                  l2 0045                  l3 0028  
+                l5 0045          __Lrdata_0 0000          __Lramdata 0000  
+               l10 0086                 _DC 0019                 _PD 001B  
+               _RD 0440                 _TO 001C                 _WR 0441  
+               fsr 0004                _GIE 005F                _RA0 0028  
+              _RA1 0029                _RB0 0030                _RA2 002A  
+              _RB1 0031                _RA3 002B                _RB2 0032  
+              _RA4 002C                _RB3 0033                _RB4 0034  
+              _RB5 0035                _RB6 0036                _RB7 0037  
+              _FSR 0004                _PCL 0002                _INT 0030  
+              _PS0 0408                _PS1 0409                _RP0 001D  
+              _PS2 040A                i1l6 006B                i1l7 006B  
+              i1l8 0063                i1l9 006A                u830 002C  
+              _PSA 040B                u831 002B                u845 0034  
+         __tempreg 000C               _EEIE 005E               _EEIF 0444  
+         _bitcount 004C               _T0IE 005D               _T0IF 005A  
+             _T0CS 040D               _T0SE 040C               _INDF 0000  
+             _INTE 005C               _INTF 0059               _RBIE 005B  
+             _RBIF 0058               _RBPU 040F               _TMR0 0001  
+             _RTCC 0001          __databank 0000               _ZERO 001A  
+             _WREN 0442               _data 004A               _main 001C  
+             _init 0076               btemp 004E               start 000F  
+interrupt_function 0004            ?_my_isr 000F              ?_main 000C  
+            ?_init 000F              _EEADR 0009              _CARRY 0018  
+         ??_my_isr 000F              i1u850 004B              i1u851 004A  
+            i1u860 0061              i1u861 0060              i1u875 0064  
+            _PORTA 0005              _PORTB 0006              _TRISA 0085  
+            _TRISB 0086              _WRERR 0443              _kbhit 0268  
+            pclath 000A           intlevel1 0004              status 0003  
+           ??_main 000C             ??_init 000F             _EEDATA 0008  
+           _EECON1 0088             _EECON2 0089       __end_of_main 0047  
+     __end_of_init 0087             _INTEDG 040E             _PCLATH 000A  
+           _INTCON 000B     __end_of_my_isr 0076             _OPTION 0081  
+           _TRISA0 0428             _TRISA1 0429             _TRISB0 0430  
+           _TRISA2 042A             _TRISB1 0431             _TRISA3 042B  
+           _TRISB2 0432             _TRISA4 042C             _TRISB3 0433  
+           _TRISB4 0434             _TRISB5 0435             _TRISB6 0436  
+           _TRISB7 0437             _STATUS 0003             _my_isr 0047  
+           saved_w 004F          __Hrdata_0 0001          __Hramdata 0001  
+         __Hrbss_0 004E  

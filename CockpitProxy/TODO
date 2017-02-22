@@ -1,0 +1,56 @@
+CockpitProxy TODO:
+------------------
+
+3 Mar 2011:
+-----------
+
+All elements are in place to hook together. Now it is time to focus on a
+protocol that we can use for our "data bus". The idea is very similar to
+the "ring of fire" implementation that we had: that of connecting all
+elements via serial link and sending packets around this loop. Each packet is
+marked with a source id, destination id and a data value. As the packet
+flows downstream, every element examines it to see if the packet is destined
+for it. If it is, it is handled. If it isn't, it is passed downstream for
+other elements to examine. The PC end can also be seen as "just another device".
+The RS232 connection is responsible for getting the packets from the PC into
+the loop and yet again back to the PC. If a packet happens to traverse the whole
+loop and end up at the component that generated it, then the packet is simply
+dropped.
+
+Our current implementation is simpler than that. Our packet contains only an
+"EventID" and a data component. We currently do this because we're sending
+only a single component's value exclusively via the serial port. This is only
+to test things. Hereafter, we have to update the protocol to "ring-of-fire"
+status.
+
+
+1 Mar 2011:
+-----------
+
+We have a basic idea how to hook all the different components together now.
+FlightGear offers a way to output information on a socket while listening on
+another socket expecting a small commandset in order to change internal state
+variables. The output parameters is defined in a protocol xml file and connects
+to a socket where the data can be received. This means that we'll have
+at least 3 running threads to hook things up together:
+
+1) A serial port thread that reads/writes to the hardware.
+2) A server socket that takes the parameter stream from flightgear
+    as it is published.
+3) A client socket that writes updated values to flightgear through the
+    socket that it makes available.
+
+We start flightgear with the following commandline:
+
+# fgfs --generic=socket,out,10,localhost,8000,tcp,comstack \
+       --props=socket,bi,5,localhost,8001,tcp
+
+The command above uses the /usr/share/FlightGear/Protocol/comstack.xml file
+to determine which nodes from the internal property tree to publish. This
+is the stream we'll parse to update our internal state variables for the published
+values and to update our hardware via serial port.
+
+The --props argument sets up a listening socket that you can connect to. This
+allows you to get and set attributes in the internal property tree. Our client
+socket will use this feature to set the FlightGear properties to new values
+as we get input from the hardware.

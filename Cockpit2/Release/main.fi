@@ -1,0 +1,10 @@
+main 10 10
+init 11
+adc_advance 17
+adc_read 18
+pending 22
+pop 23
+putc 24
+putc 25
+_delay 26
+30

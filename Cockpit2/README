@@ -1,0 +1,56 @@
+Cockpit version 2:
+------------------
+
+In Cockpit version 1 we've explored the 16F877 ADC and RS232 comms to PC. We've
+had some success with this, where we managed to hook quite a bit of control
+into the Cessna cockpit. This includes controls for the airlelons, elevators,
+rudder, throttle and mixture. It would also be nice to control the trim and
+the breaks (left and right) individually. We've also managed to hook a few
+buttons to control stuff like the starter and some of the radio panel controls.
+
+For proof of concept this would suffice, but we definately encountered some
+problems when it comes to full cockpit control. We don't have enough pins
+for mapping ALL the switches and dials. The second problem was update speed.
+We currently sit in a tight loop polling for changes on the ADC and button
+ports, and send the data on-the-fly to the PC. While we're stuck in the
+ADC loop, for example, we're not able to detect switch changes. So we'll have
+to alter the design to be able to communicate between multiple pics in order
+to expand the availability of buttons and ADC channels. And on the programming
+side we'll have to resort to a multitasking interrupt-driven approach to be
+sure that we don't spend too much time polling ports and channels.
+
+First of all, we'll have to figure out how we're going to manage multitasking.
+We know that we'll do RS232 comms with the PC. We must use a ring buffer for
+this so that we can share the RS232 comms with other tasks, such as the ADC
+thread, the switch sensing thread and the PIC to PIC IO thread. We know that
+we can use interrupt driven ADC given that we select the channel and issue
+a conversion. The result can be obtained via interrupt. The alternative is
+to resort to polling techniques, but this means that we'll have a blocking
+delay in our program flow which is a problem that we're trying to eliminate.
+
+The switch sensing is something we can't really do any other way but poll. We
+have only 1 external interrupt pin and 4 interrupt-on-change pins, and that
+simply isn't enough. So polling is in order here.
+
+Comms with other micros is something we haven't done at all. We have some
+choice here - we could resort to software SPI or we could do a full blown
+address/data bus. SPI uses only 3 pins, which is kinda nice. And we can
+add ALLOT more devices which means we'll hardly ever run out of IO pins. But
+the con is that software comms is always a bitch. The other alternative is
+to do the address/data bus where the master CPU is interrupted, say, on
+one of the 4 interrupt-on-change pins. The limitation is that only 4 external
+devices could be connected in this way - as we'll need one interrupt line
+for each device. And of course we'll need 4 address selection lines + 8 data
+lines on each slave device. This brings us back to square 1 - too little IO
+pins to hook up all the knobs and switches. There is also i2c - which uses
+only 2 lines for communication. The address is encoded in the protocol, so
+virtually any amount of devices can communicate this way.
+
+So we really have allot to think about and allot of experimenting to do. We
+really enjoy having the hardware RS232 comms with the PC - so sacrificing
+that for the sake of SPI or i2c with other chips is not exactly something
+we want. If we can find a PIC micro with 2 USARTs - now that would be
+a different story entirely. We can use one USART for comms with the PC, and
+another to communicate between and coordinate other onboard PICS. This
+sounds like the easiest sollution on the software side.
+

@@ -1,0 +1,236 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[s S1 `uc 1 `uc 1 `uc 1 ]
+[n S1 packet_t src_id dst_id data ]
+"6 ../fifo.c
+[v _in_fifo `S1 -> 16 `i e ]
+"7 ../fifo.c
+[v _in_iidx `uc 1 e ]
+"8 ../fifo.c
+[v _in_oidx `uc 1 e ]
+"9 ../fifo.c
+[v _in_tidx `uc 1 e ]
+"11 ../fifo.c
+[v _out_fifo `S1 -> 16 `i e ]
+"12 ../fifo.c
+[v _out_iidx `uc 1 e ]
+"13 ../fifo.c
+[v _out_oidx `uc 1 e ]
+"14 ../fifo.c
+[v _out_tidx `uc 1 e ]
+[; ;fifo.h: 10: struct packet_t {
+[; ;fifo.h: 11: unsigned char src_id;
+[; ;fifo.h: 12: unsigned char dst_id;
+[; ;fifo.h: 13: unsigned char data;
+[; ;fifo.h: 14: };
+[; ;fifo.h: 16: void in_push(struct packet_t entry);
+[; ;fifo.h: 17: struct packet_t in_pop(void);
+[; ;fifo.h: 18: unsigned char in_pending(void);
+[; ;fifo.h: 20: void out_push(struct packet_t packet);
+[; ;fifo.h: 21: struct packet_t out_pop(void);
+[; ;fifo.h: 22: unsigned char out_pending(void);
+[; ;fifo.c: 6: struct packet_t in_fifo[16];
+[i _in_iidx
+"7 ../fifo.c
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 7: unsigned char in_iidx = 0;
+[i _in_oidx
+"8
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 8: unsigned char in_oidx = 0;
+[i _in_tidx
+"9
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 9: unsigned char in_tidx = 0;
+[; ;fifo.c: 11: struct packet_t out_fifo[16];
+[i _out_iidx
+"12
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 12: unsigned char out_iidx = 0;
+[i _out_oidx
+"13
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 13: unsigned char out_oidx = 0;
+[i _out_tidx
+"14
+-> -> 0 `i `uc
+]
+[; ;fifo.c: 14: unsigned char out_tidx = 0;
+"16
+[v _in_push `(v 1 ef1`S1 ]
+{
+[; ;fifo.c: 16: void in_push(struct packet_t entry) {
+[e :U _in_push ]
+[v _entry `S1 1 r1 ]
+[f ]
+[; ;fifo.c: 17: in_fifo[in_iidx] = entry;
+"17
+[e = *U + &U _in_fifo * -> _in_iidx `ux -> -> # *U &U _in_fifo `ui `ux _entry ]
+[; ;fifo.c: 18: in_tidx = (in_iidx + 1) & (16-1);;
+"18
+[e = _in_tidx -> & + -> _in_iidx `i -> 1 `i - -> 16 `i -> 1 `i `uc ]
+[; ;fifo.c: 19: if (in_tidx != in_oidx) {
+"19
+[e $ ! != -> _in_tidx `i -> _in_oidx `i 3  ]
+{
+[; ;fifo.c: 20: in_iidx = in_tidx;
+"20
+[e = _in_iidx _in_tidx ]
+"21
+}
+[e :U 3 ]
+[; ;fifo.c: 21: }
+[; ;fifo.c: 22: }
+"22
+[e :UE 2 ]
+}
+"24
+[v _in_pop `(S1 1 ef ]
+{
+[; ;fifo.c: 24: struct packet_t in_pop(void) {
+[e :U _in_pop ]
+[f ]
+"25
+[v _rv `S1 1 a ]
+[; ;fifo.c: 25: struct packet_t rv;
+[; ;fifo.c: 26: rv = in_fifo[in_oidx];
+"26
+[e = _rv *U + &U _in_fifo * -> _in_oidx `ux -> -> # *U &U _in_fifo `ui `ux ]
+[; ;fifo.c: 27: ++in_oidx;
+"27
+[e =+ _in_oidx -> -> 1 `i `uc ]
+[; ;fifo.c: 28: in_oidx &= (16-1);;
+"28
+[e =& _in_oidx -> - -> 16 `i -> 1 `i `uc ]
+[; ;fifo.c: 29: return rv;
+"29
+[e ) _rv ]
+[e $UE 4  ]
+[; ;fifo.c: 30: }
+"30
+[e :UE 4 ]
+}
+"33
+[v _in_pending `(uc 1 ef ]
+{
+[; ;fifo.c: 32: unsigned char in_pending(void)
+[; ;fifo.c: 33: {
+[e :U _in_pending ]
+[f ]
+[; ;fifo.c: 34: if (in_iidx > in_oidx) {
+"34
+[e $ ! > -> _in_iidx `i -> _in_oidx `i 6  ]
+{
+[; ;fifo.c: 35: return (in_iidx - in_oidx);
+"35
+[e ) -> - -> _in_iidx `i -> _in_oidx `i `uc ]
+[e $UE 5  ]
+"36
+}
+[; ;fifo.c: 36: } else {
+[e $U 7  ]
+[e :U 6 ]
+{
+[; ;fifo.c: 37: return (in_oidx - in_iidx);
+"37
+[e ) -> - -> _in_oidx `i -> _in_iidx `i `uc ]
+[e $UE 5  ]
+"38
+}
+[e :U 7 ]
+[; ;fifo.c: 38: }
+[; ;fifo.c: 39: }
+"39
+[e :UE 5 ]
+}
+"41
+[v _out_push `(v 1 ef1`S1 ]
+{
+[; ;fifo.c: 41: void out_push(struct packet_t entry) {
+[e :U _out_push ]
+[v _entry `S1 1 r1 ]
+[f ]
+[; ;fifo.c: 42: out_fifo[out_iidx] = entry;
+"42
+[e = *U + &U _out_fifo * -> _out_iidx `ux -> -> # *U &U _out_fifo `ui `ux _entry ]
+[; ;fifo.c: 43: out_tidx = (out_iidx + 1) & (16-1);;
+"43
+[e = _out_tidx -> & + -> _out_iidx `i -> 1 `i - -> 16 `i -> 1 `i `uc ]
+[; ;fifo.c: 44: if (out_tidx != out_oidx) {
+"44
+[e $ ! != -> _out_tidx `i -> _out_oidx `i 9  ]
+{
+[; ;fifo.c: 45: out_iidx = out_tidx;
+"45
+[e = _out_iidx _out_tidx ]
+"46
+}
+[e :U 9 ]
+[; ;fifo.c: 46: }
+[; ;fifo.c: 47: }
+"47
+[e :UE 8 ]
+}
+"49
+[v _out_pop `(S1 1 ef ]
+{
+[; ;fifo.c: 49: struct packet_t out_pop(void) {
+[e :U _out_pop ]
+[f ]
+"50
+[v _rv `S1 1 a ]
+[; ;fifo.c: 50: struct packet_t rv;
+[; ;fifo.c: 51: rv = out_fifo[out_oidx];
+"51
+[e = _rv *U + &U _out_fifo * -> _out_oidx `ux -> -> # *U &U _out_fifo `ui `ux ]
+[; ;fifo.c: 52: ++out_oidx;
+"52
+[e =+ _out_oidx -> -> 1 `i `uc ]
+[; ;fifo.c: 53: out_oidx &= (16-1);;
+"53
+[e =& _out_oidx -> - -> 16 `i -> 1 `i `uc ]
+[; ;fifo.c: 54: return rv;
+"54
+[e ) _rv ]
+[e $UE 10  ]
+[; ;fifo.c: 55: }
+"55
+[e :UE 10 ]
+}
+"58
+[v _out_pending `(uc 1 ef ]
+{
+[; ;fifo.c: 57: unsigned char out_pending(void)
+[; ;fifo.c: 58: {
+[e :U _out_pending ]
+[f ]
+[; ;fifo.c: 59: if (out_iidx > out_oidx) {
+"59
+[e $ ! > -> _out_iidx `i -> _out_oidx `i 12  ]
+{
+[; ;fifo.c: 60: return (out_iidx - out_oidx);
+"60
+[e ) -> - -> _out_iidx `i -> _out_oidx `i `uc ]
+[e $UE 11  ]
+"61
+}
+[; ;fifo.c: 61: } else {
+[e $U 13  ]
+[e :U 12 ]
+{
+[; ;fifo.c: 62: return (out_oidx - out_iidx);
+"62
+[e ) -> - -> _out_oidx `i -> _out_iidx `i `uc ]
+[e $UE 11  ]
+"63
+}
+[e :U 13 ]
+[; ;fifo.c: 63: }
+[; ;fifo.c: 64: }
+"64
+[e :UE 11 ]
+}

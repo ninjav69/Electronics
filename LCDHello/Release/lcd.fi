@@ -1,0 +1,21 @@
+lcd_init 14 14
+_delay 20
+lcd_write 22
+_delay 23
+lcd_write 25
+lcd_clear 27
+lcd_write 29
+30
+lcd_clear 32 32
+lcd_write 34
+_delay 35
+36
+lcd_write 38 38
+_delay 39
+42
+lcd_putc 44 44
+lcd_write 46
+47
+lcd_puts 49 49
+lcd_write 52
+54

@@ -1,0 +1,281 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"53 /usr/local/hitechc/include/pic16f84.h
+[v _INDF `Vuc 1 e@0 ]
+"57 /usr/local/hitechc/include/pic16f84.h
+[v _TMR0 `Vuc 1 e@1 ]
+"61 /usr/local/hitechc/include/pic16f84.h
+[v _PCL `Vuc 1 e@2 ]
+"65 /usr/local/hitechc/include/pic16f84.h
+[v _STATUS `Vuc 1 e@3 ]
+"67 /usr/local/hitechc/include/pic16f84.h
+[v _CARRY `Vb 1 e@24 ]
+"68 /usr/local/hitechc/include/pic16f84.h
+[v _DC `Vb 1 e@25 ]
+"69 /usr/local/hitechc/include/pic16f84.h
+[v _ZERO `Vb 1 e@26 ]
+"70 /usr/local/hitechc/include/pic16f84.h
+[v _nPD `Vb 1 e@27 ]
+"71 /usr/local/hitechc/include/pic16f84.h
+[v _nTO `Vb 1 e@28 ]
+"72 /usr/local/hitechc/include/pic16f84.h
+[v _IRP `Vb 1 e@31 ]
+"73 /usr/local/hitechc/include/pic16f84.h
+[v _RP0 `Vb 1 e@29 ]
+"74 /usr/local/hitechc/include/pic16f84.h
+[v _RP1 `Vb 1 e@30 ]
+[s S2 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S2 . C DC Z nPD nTO RP IRP ]
+[s S3 :5 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S3 . . RP0 RP1 ]
+[u S1 `S2 1 `S3 1 ]
+[n S1 . . . ]
+"91 /usr/local/hitechc/include/pic16f84.h
+[v _STATUSbits `VS1 1 e@3 ]
+"95 /usr/local/hitechc/include/pic16f84.h
+[v _FSR `Vuc 1 e@4 ]
+"99 /usr/local/hitechc/include/pic16f84.h
+[v _PORTA `Vuc 1 e@5 ]
+"101 /usr/local/hitechc/include/pic16f84.h
+[v _RA0 `Vb 1 e@40 ]
+"102 /usr/local/hitechc/include/pic16f84.h
+[v _RA1 `Vb 1 e@41 ]
+"103 /usr/local/hitechc/include/pic16f84.h
+[v _RA2 `Vb 1 e@42 ]
+"104 /usr/local/hitechc/include/pic16f84.h
+[v _RA3 `Vb 1 e@43 ]
+"105 /usr/local/hitechc/include/pic16f84.h
+[v _RA4 `Vb 1 e@44 ]
+[s S5 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S5 . RA0 RA1 RA2 RA3 RA4 ]
+[u S4 `S5 1 ]
+[n S4 . . ]
+"115 /usr/local/hitechc/include/pic16f84.h
+[v _PORTAbits `VS4 1 e@5 ]
+"119 /usr/local/hitechc/include/pic16f84.h
+[v _PORTB `Vuc 1 e@6 ]
+"121 /usr/local/hitechc/include/pic16f84.h
+[v _RB0 `Vb 1 e@48 ]
+"122 /usr/local/hitechc/include/pic16f84.h
+[v _RB1 `Vb 1 e@49 ]
+"123 /usr/local/hitechc/include/pic16f84.h
+[v _RB2 `Vb 1 e@50 ]
+"124 /usr/local/hitechc/include/pic16f84.h
+[v _RB3 `Vb 1 e@51 ]
+"125 /usr/local/hitechc/include/pic16f84.h
+[v _RB4 `Vb 1 e@52 ]
+"126 /usr/local/hitechc/include/pic16f84.h
+[v _RB5 `Vb 1 e@53 ]
+"127 /usr/local/hitechc/include/pic16f84.h
+[v _RB6 `Vb 1 e@54 ]
+"128 /usr/local/hitechc/include/pic16f84.h
+[v _RB7 `Vb 1 e@55 ]
+[s S7 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S7 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+[u S6 `S7 1 ]
+[n S6 . . ]
+"141 /usr/local/hitechc/include/pic16f84.h
+[v _PORTBbits `VS6 1 e@6 ]
+"145 /usr/local/hitechc/include/pic16f84.h
+[v _EEDATA `Vuc 1 e@8 ]
+"149 /usr/local/hitechc/include/pic16f84.h
+[v _EEADR `Vuc 1 e@9 ]
+"153 /usr/local/hitechc/include/pic16f84.h
+[v _PCLATH `Vuc 1 e@10 ]
+[s S9 :5 `uc 1 ]
+[n S9 . PCLATH ]
+[u S8 `S9 1 ]
+[n S8 . . ]
+"160 /usr/local/hitechc/include/pic16f84.h
+[v _PCLATHbits `VS8 1 e@10 ]
+"164 /usr/local/hitechc/include/pic16f84.h
+[v _INTCON `Vuc 1 e@11 ]
+"166 /usr/local/hitechc/include/pic16f84.h
+[v _RBIF `Vb 1 e@88 ]
+"167 /usr/local/hitechc/include/pic16f84.h
+[v _INTF `Vb 1 e@89 ]
+"168 /usr/local/hitechc/include/pic16f84.h
+[v _T0IF `Vb 1 e@90 ]
+"169 /usr/local/hitechc/include/pic16f84.h
+[v _RBIE `Vb 1 e@91 ]
+"170 /usr/local/hitechc/include/pic16f84.h
+[v _INTE `Vb 1 e@92 ]
+"171 /usr/local/hitechc/include/pic16f84.h
+[v _T0IE `Vb 1 e@93 ]
+"172 /usr/local/hitechc/include/pic16f84.h
+[v _EEIE `Vb 1 e@94 ]
+"173 /usr/local/hitechc/include/pic16f84.h
+[v _GIE `Vb 1 e@95 ]
+"174 /usr/local/hitechc/include/pic16f84.h
+[v _TMR0IF `Vb 1 e@90 ]
+"175 /usr/local/hitechc/include/pic16f84.h
+[v _TMR0IE `Vb 1 e@93 ]
+[s S11 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S11 . RBIF INTF T0IF RBIE INTE T0IE EEIE GIE ]
+[s S12 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S12 . . TMR0IF . TMR0IE ]
+[u S10 `S11 1 `S12 1 ]
+[n S10 . . . ]
+"194 /usr/local/hitechc/include/pic16f84.h
+[v _INTCONbits `VS10 1 e@11 ]
+"203 /usr/local/hitechc/include/pic16f84.h
+[v _OPTION_REG `Vuc 1 e@129 ]
+"205 /usr/local/hitechc/include/pic16f84.h
+[v _PSA `Vb 1 e@1035 ]
+"206 /usr/local/hitechc/include/pic16f84.h
+[v _T0SE `Vb 1 e@1036 ]
+"207 /usr/local/hitechc/include/pic16f84.h
+[v _T0CS `Vb 1 e@1037 ]
+"208 /usr/local/hitechc/include/pic16f84.h
+[v _INTEDG `Vb 1 e@1038 ]
+"209 /usr/local/hitechc/include/pic16f84.h
+[v _nRBPU `Vb 1 e@1039 ]
+"210 /usr/local/hitechc/include/pic16f84.h
+[v _PS0 `Vb 1 e@1032 ]
+"211 /usr/local/hitechc/include/pic16f84.h
+[v _PS1 `Vb 1 e@1033 ]
+"212 /usr/local/hitechc/include/pic16f84.h
+[v _PS2 `Vb 1 e@1034 ]
+[s S14 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S14 . PS PSA T0SE T0CS INTEDG nRBPU ]
+[s S15 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S15 . PS0 PS1 PS2 ]
+[u S13 `S14 1 `S15 1 ]
+[n S13 . . . ]
+"228 /usr/local/hitechc/include/pic16f84.h
+[v _OPTION_REGbits `VS13 1 e@129 ]
+"232 /usr/local/hitechc/include/pic16f84.h
+[v _TRISA `Vuc 1 e@133 ]
+"234 /usr/local/hitechc/include/pic16f84.h
+[v _TRISA0 `Vb 1 e@1064 ]
+"235 /usr/local/hitechc/include/pic16f84.h
+[v _TRISA1 `Vb 1 e@1065 ]
+"236 /usr/local/hitechc/include/pic16f84.h
+[v _TRISA2 `Vb 1 e@1066 ]
+"237 /usr/local/hitechc/include/pic16f84.h
+[v _TRISA3 `Vb 1 e@1067 ]
+"238 /usr/local/hitechc/include/pic16f84.h
+[v _TRISA4 `Vb 1 e@1068 ]
+[s S17 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S17 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 ]
+[u S16 `S17 1 ]
+[n S16 . . ]
+"248 /usr/local/hitechc/include/pic16f84.h
+[v _TRISAbits `VS16 1 e@133 ]
+"252 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB `Vuc 1 e@134 ]
+"254 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB0 `Vb 1 e@1072 ]
+"255 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB1 `Vb 1 e@1073 ]
+"256 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB2 `Vb 1 e@1074 ]
+"257 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB3 `Vb 1 e@1075 ]
+"258 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB4 `Vb 1 e@1076 ]
+"259 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB5 `Vb 1 e@1077 ]
+"260 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB6 `Vb 1 e@1078 ]
+"261 /usr/local/hitechc/include/pic16f84.h
+[v _TRISB7 `Vb 1 e@1079 ]
+[s S19 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S19 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
+[u S18 `S19 1 ]
+[n S18 . . ]
+"274 /usr/local/hitechc/include/pic16f84.h
+[v _TRISBbits `VS18 1 e@134 ]
+"278 /usr/local/hitechc/include/pic16f84.h
+[v _EECON1 `Vuc 1 e@136 ]
+"280 /usr/local/hitechc/include/pic16f84.h
+[v _RD `Vb 1 e@1088 ]
+"281 /usr/local/hitechc/include/pic16f84.h
+[v _WR `Vb 1 e@1089 ]
+"282 /usr/local/hitechc/include/pic16f84.h
+[v _WREN `Vb 1 e@1090 ]
+"283 /usr/local/hitechc/include/pic16f84.h
+[v _WRERR `Vb 1 e@1091 ]
+"284 /usr/local/hitechc/include/pic16f84.h
+[v _EEIF `Vb 1 e@1092 ]
+[s S21 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S21 . RD WR WREN WRERR EEIF ]
+[u S20 `S21 1 ]
+[n S20 . . ]
+"294 /usr/local/hitechc/include/pic16f84.h
+[v _EECON1bits `VS20 1 e@136 ]
+"298 /usr/local/hitechc/include/pic16f84.h
+[v _EECON2 `Vuc 1 e@137 ]
+[p mainexit ]
+"2 init.h
+[v _init `(v 0 ef ]
+"148 /usr/local/hitechc/include/pic.h
+[v __delay `(v 0 ef1`ul ]
+[p i __delay ]
+"8 main.c
+[v _main `(v 1 ef ]
+{
+[e :U _main ]
+[f ]
+"9
+[v _output `uc 1 a ]
+[e = _output -> -> 1 `i `uc ]
+"10
+[v _i `uc 1 a ]
+"12
+[e ( _init ..  ]
+"13
+[e :U 24 ]
+{
+"14
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 7 `i 26  ]
+[e $U 27  ]
+"15
+[e :U 26 ]
+{
+"16
+[e = _PORTB _output ]
+"17
+[e =<< _output -> 1 `i ]
+"18
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
+"19
+}
+"14
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 7 `i 26  ]
+[e :U 27 ]
+"19
+}
+"20
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 7 `i 29  ]
+[e $U 30  ]
+"21
+[e :U 29 ]
+{
+"22
+[e = _PORTB _output ]
+"23
+[e =>> _output -> 1 `i ]
+"24
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
+"25
+}
+"20
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 7 `i 29  ]
+[e :U 30 ]
+"25
+}
+"26
+}
+[e :U 23 ]
+"13
+[e $U 24  ]
+[e :U 25 ]
+"27
+[e :UE 22 ]
+}

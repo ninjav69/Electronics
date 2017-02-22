@@ -1,0 +1,23 @@
+
+<codewizard page="1">
+  <fileSettings initFile="init.c" initFunc="init" h_match="true" hFile="init.h" genIsr="true" isrFile="isr.c" mainInit="true"/>
+  <module name="16F84A" enabled="true">
+    <settings frequency="4000000" idEnable="false" idCode="0000" confEnable="true" cfgOSC="2" cfgWDT="1" cfgPUT="0" cfgCP="0" globalIntEnable="true"/>
+    <module name="EEPROM" enabled="false">
+      <settings intEnable="false" genInterrupt="false"/>
+    </module>
+    <module name="I/O Ports" enabled="true">
+      <module name="PortA" enabled="true">
+        <settings pinState0="2" pinState1="2" pinState2="2" pinState3="2" pinState4="1" pinState5="0" pinState6="0" pinState7="0"/>
+      </module>
+      <module name="PortB" enabled="true">
+        <settings pinState0="1" pinState1="2" pinState2="2" pinState3="2" pinState4="2" pinState5="2" pinState6="2" pinState7="2" enint="false" genint="false" pullup="false"/>
+      </module>
+    </module>
+    <module name="Timers" enabled="false">
+      <module name="Timer 0" enabled="false">
+        <settings source="0" preAssign="false" preScale="0" trigEdge="false" intEnable="false" genInterrupt="false"/>
+      </module>
+    </module>
+  </module>
+</codewizard>
